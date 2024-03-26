@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="registra.css">
+    <title>Register Page</title>
+</head>
+
+<body>
+    <section class="sign_up">
+        <div class="container">
+            <h1>Login</h1>
+            <p id="create">login to your account</p>
+            <div class="details">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Passowrd" required>
+            </div>
+            <a href="" id="register_btn">Login now</a>
+            <div>
+                <h1 id="successo" style="display:none">LOGIN EFFETTUATO CON SUCCESSO</h1>
+                <h1 id="errato" style="display:none">LOGIN ERRATO</h1>
+              </div>  
+    </section>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+          event.preventDefault();
+          
+          const usr = document.getElementById('u').value;
+          const passwd = document.getElementById('p').value;
+          fetch('/accesso', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ usr, passwd })
+          })
+          .then(response => {
+            if (response.ok) {
+                document.getElementById("successo").style.display="block";
+                document.getElementById("errato").style.display="none";
+              } else {
+                document.getElementById("errato").style.display="block"; 
+                document.getElementById("successo").style.display="none"; }
+          })
+          .then(data => {
+            if (data && data.error) {
+              document.getElementById('error-message').textContent = data.error;
+            }
+          })
+        });
+      </script>
+</body>
+
+</html>
