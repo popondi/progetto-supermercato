@@ -16,7 +16,7 @@
     <script>
         document.getElementById('submitButton').addEventListener('click', function() {
             var requestText = document.getElementById('requestText').value;
-            fetch('/richiestaPOST', {
+            fetch('/richiesta', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
