@@ -196,13 +196,28 @@ async def registrazione(request: Request):
             contenuto = file.read()
 
         return HTMLResponse(content=contenuto, status_code=200)
-    
-@app.get("/profilo")
-def radice(user = Depends(manager)):
-    with open("area_personale.html") as file: 
-        contenuto = file.read()
 
-    return HTMLResponse(content=contenuto, status_code=200)
+
+@app.get("/profilo")
+def home(request: Request, user: User = Depends(manager)):
+    # Connessione al database
+    connection = connecttodb('areapersonale')
+    if connection is None:
+        raise HTTPException(status_code=500, detail="Errore nella connessione al database")
+    
+    try:
+        cursor = connection.cursor(dictionary=True)
+        query = "SELECT nome, cognome, username FROM utenti WHERE username= %s and passwrd= %s"
+        cursor.execute(query,(user['username'], user['passwrd']))
+        products = cursor.fetchall()
+    except mysql.connector.Error as err:
+        print(f"Errore durante l'esecuzione della query: {err}")
+        raise HTTPException(status_code=500, detail="Errore durante l'esecuzione della query")
+    finally:
+        cursor.close()
+        connection.close()
+
+    return templates.TemplateResponse("area_personale.html", {"request": request, "products": products})
 
 @app.route('/modifica', methods=['GET', 'POST'])
 async def registrazione(request: Request):

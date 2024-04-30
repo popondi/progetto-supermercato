@@ -11,10 +11,9 @@
     <div class="container">
         <h1>Area Personale</h1>
         <div class="user-info">
-            <p><strong>Nome:</strong> Mario</p>
-            <p><strong>Cognome:</strong> Rossi</p>
-            <p><strong>Email:</strong> mario.rossi@example.com</p>
-            <p><strong>Password:</strong> **********</p>
+            <p><strong>Nome:</strong> {{ products.nome }}</p>
+            <p><strong>Cognome:</strong> {{ products.cognome }}</p>
+            <p><strong>Username:</strong> {{ products.username }}</p>
         </div>
         <div class="edit-profile-link">
             <a href="/modifica">Modifica Profilo</a>
