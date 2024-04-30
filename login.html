@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="static/login.css">
+    <title>Pagina di login</title>
+</head>
+
+<body>
+    <section class="sign_up">
+        <div class="container">
+            <h1>Login</h1>
+            <p id="create">Entra nel tuo account.</p>
+            <div class="details">
+                <input type="email" placeholder="Email" id="u" required> <!-- Aggiunto id="u" -->
+                <input type="password" placeholder="Password" id="p" required> <!-- Aggiunto id="p" -->
+            </div>
+            <!-- Cambiato <a> in <button> e aggiunto onclick event handler -->
+            <button id="register_btn" onclick="login()">Entra</button>
+            <br>
+            <p>Non hai ancora un account? Registrati ora<span></span></p>
+            </br>
+           
+           <a href="/registra">Registrati</a> 
+            <div>
+                <h4 id="successo" style="display:none">Login effettuato correttamente!</h4>
+                <h4 id="errato" style="display:none">Errore nel login.</h4>
+            </div>
+    </section>
+    <script>
+        function login() {
+            const usr = document.getElementById('u').value;
+            const passwd = document.getElementById('p').value;
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "username": usr, "password" : passwd })
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById("successo").style.display="block";
+                    document.getElementById("errato").style.display="none";
+                  setTimeout(function() {window.location.href = "/home";}, 3500);
+                } else {
+                    document.getElementById("errato").style.display="block"; 
+                    document.getElementById("successo").style.display="none";
+                }
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+                alert("Errore nel login. Si prega di riprovare più tardi.");
+            });
+        }
+    </script>
+</body>
+</html>

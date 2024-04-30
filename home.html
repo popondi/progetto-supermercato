@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <!-- Collegamento al file CSS esterno -->
+    <link rel="stylesheet" type="text/css" href="static/home.css">
+    <!-- Collegamento all'icon set di FontAwesome per icone -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header class="sticky-header">
+        <div>
+            <h1>Supermercato</h1>
+        </div>
+        <nav>
+            <!-- Link del Carrello con icona -->
+            <a href="/carrello">
+                <i class="fas fa-shopping-cart"></i> Carrello
+            </a>
+            <!-- Link dell'Area Personale con icona -->
+            <a href="/profilo">
+                <i class="fas fa-user"></i> Profilo Utente
+            </a>
+        </nav>
+    </header>
+
+    <main class="content">
+        <h2>Prodotti in offerta</h2>
+        <div class="product-grid">
+            <!-- Inserire qui le card dei prodotti -->
+            {% for product in items %}
+            <div class="product">
+                <img src="data:image/png;base64,{{ product.immagine }}" alt="{{ product.nome }}">
+                <h3>{{ product.nome }}</h3>
+                <p>{{ product.desc_prod }}</p>
+                <p>Prezzo: {{ product.prezzo }}</p>
+                <button>Aggiungi al carrello</button>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <footer>
+        <a href="/richiesta">Richieste</a>
+    </footer>
+    <script>
+        window.addEventListener('scroll', function() {
+            var footer = document.querySelector('footer');
+            var windowHeight = window.innerHeight;
+            var scrollY = window.scrollY || window.pageYOffset;
+            var bodyHeight = document.body.offsetHeight;
+
+            // Se l'utente si avvicina alla fine della pagina, mostra il footer
+            if (windowHeight + scrollY >= bodyHeight) {
+                footer.style.bottom = '0';
+            } else {
+                footer.style.bottom = '-50px';  // Rimane nascosto
+            }
+        });
+    </script>
+</body>
+</html>

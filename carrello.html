@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrello del Supermercato</title>
+    <link rel="stylesheet" type="text/css" href="static/carrello.css">
+</head>
+<body>
+    <div class="container">
+        <div class="products">
+            <h2>Prodotti nel Carrello</h2>
+            <ul id="cart-items">
+                <!-- Qui verranno aggiunti dinamicamente gli elementi del carrello -->
+            </ul>
+        </div>
+        <div class="summary">
+            <h2>Riepilogo Carrello</h2>
+            <div class="checkout">
+                <p>Totale: <span id="total-price">$0.00</span></p>
+                <button onclick="purchase()">Acquista</button>
+            </div>
+        </div>
+    </div>
+    <p class="checkout" align="center"><button onclick="returnToShop()">Torna allo Shop</button></p>
+
+    <script src="static/script.js"></script>
+    <script>
+        function returnToShop() {
+            window.location.href = "/home";
+        }
+    </script>
+</body>
+</html>

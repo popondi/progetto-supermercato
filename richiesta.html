@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="static/richiesta.css">
+    <title>Richiesta</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Scrivi qua la tua richiesta</h1>
+        <textarea id="requestText" maxlength="369"></textarea>
+        <button id="submitButton">Invia</button>
+    </div>
+    <script>
+        document.getElementById('submitButton').addEventListener('click', function() {
+            var requestText = document.getElementById('requestText').value;
+            fetch('/richiestaPOST', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ request: requestText })
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Gestisci la risposta positiva qui
+                    console.log('Richiesta inviata con successo!');
+                } else {
+                    // Gestisci eventuali errori qui
+                    console.error("Errore nell'invio della richiesta.");
+                }
+            })
+            .catch(error => {
+                console.error('Si è verificato un errore:', error);
+            });
+        });
+    </script>
+</body>
+</html>

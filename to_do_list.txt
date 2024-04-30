@@ -1,0 +1,8 @@
+TO DO LIST
+
+1.CSS conformi a tutte le pagine.  -  da fare
+2.Aggiungere la possibilità di cambiare la quantità del prodotto direttamente senza dover aumentare di 1.  -  fatto
+2.1 da modificare soltanto la grandezza della casella di testo che si deve modellare all'aumentare delle cifre
+3.Aggiornare la home con collegamenti alle altre pagine  -  da fare
+4.Sessione per accedere alla home solo tramite il login.  -  da fare
+5.

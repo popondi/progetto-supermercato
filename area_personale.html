@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Personale</title>
+   
+    <link rel="stylesheet" type="text/css" href="static/area_personale.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Area Personale</h1>
+        <div class="user-info">
+            <p><strong>Nome:</strong> Mario</p>
+            <p><strong>Cognome:</strong> Rossi</p>
+            <p><strong>Email:</strong> mario.rossi@example.com</p>
+            <p><strong>Password:</strong> **********</p>
+        </div>
+        <div class="edit-profile-link">
+            <a href="/modifica">Modifica Profilo</a>
+        </div>
+    </div>
+    <p class="checkout" align="center"><button onclick="returnToShop()">Torna allo Shop</button></p>
+    <script>
+        function returnToShop() {
+            window.location.href = "/home";
+        }
+    </script>
+
+</body>
+</html>
