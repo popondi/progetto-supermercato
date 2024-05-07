@@ -32,11 +32,12 @@
             <!-- Inserire qui le card dei prodotti -->
             {% for product in items %}
             <div class="product">
-                <img src="data:image/png;base64,{{ product.immagine }}" alt="{{ product.nome }}">
+                <img src="{{ product.immagine }}" alt="{{ product.nome }}">
                 <h3>{{ product.nome }}</h3>
                 <p>{{ product.desc_prod }}</p>
                 <p>Prezzo: {{ product.prezzo }}</p>
                 <button>Aggiungi al carrello</button>
+                
             </div>
             {% endfor %}
         </div>
