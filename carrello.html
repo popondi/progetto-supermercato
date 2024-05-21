@@ -27,13 +27,30 @@
         <div class="products">
             <h2>Prodotti nel Carrello</h2>
             <ul id="cart-items">
-                <!-- Qui verranno aggiunti dinamicamente gli elementi del carrello -->
+                {% for product in products_in_cart %}
+                <li data-index="{{ loop.index0 }}">
+                    <span>{{ product.nome }}</span>
+                    <span>{{ product.prezzo }} €</span>
+                    <span>Quantità: </span>
+                    <button class="quantity-controls" onclick="decreaseQuantity({{ loop.index0 }})">-</button>
+                    <input type="text" class="quantity-input" value="{{ product.quantita }}" size="{{ product.quantita | string | length }}">
+                    <button class="quantity-controls" onclick="increaseQuantity({{ loop.index0 }})">+</button>
+                    <span class="total-price"> Prezzo: {{ (product.prezzo * product.quantita) | round(2) }} €</span>
+                    <button class="remove-button" onclick="removeItem( {{ loop.index0 }} )">❌</button>
+                </li>
+                {% endfor %}
             </ul>
         </div>
         <div class="summary">
             <h2>Riepilogo Carrello</h2>
             <div class="checkout">
-                <p>Totale: <span id="total-price">$0.00</span></p>
+                <p>Totale: <span id="total-price">
+                    {% set total_price = 0 %}
+                    {% for product in products_in_cart %}
+                        {% set total_price = total_price + (product.prezzo * product.quantita) %}
+                    {% endfor %}
+                    {{ total_price | round(2) }} €
+                </span></p>
                 <div class="animated-button" onclick="purchase()">
                     <div class="left-side">
                         <div class="card">
@@ -52,7 +69,7 @@
                     <div class="right-side">
                         <div class="new">Acquista</div>
                         <svg viewBox="0 0 451.846 451.847" height="512" width="512" xmlns="http://www.w3.org/2000/svg" class="arrow">
-                            <path fill="#cfcfcf" data-old_color="#000000" class="active-path" data-original="#000000" d="M345.441 248.292L151.154 442.573c-12.359 12.365-32.397 12.365-44.75 0-12.354-12.354-12.354-32.391 0-44.744L278.318 225.92 106.409 54.017c-12.354-12.359-12.354-32.394 0-44.748 12.354-12.359 32.391-12.359 44.75 0l194.287 194.284c6.177 6.18 9.262 14.271 9.262 22.366 0 8.099-3.091 16.196-9.267 22.373z"></path>
+                            <path fill="#cfcfcf" d="M345.441 248.292L151.154 442.573c-12.359 12.365-32.397 12.365-44.75 0-12.354-12.354-12.354-32.391 0-44.744L278.318 225.92 106.409 54.017c-12.354-12.359-12.354-32.394 0-44.748 12.354-12.359 32.391-12.359 44.75 0l194.287 194.284c6.177 6.18 9.262 14.271 9.262 22.366 0 8.099-3.091 16.196-9.267 22.373z"></path>
                         </svg>
                     </div>
                 </div>
