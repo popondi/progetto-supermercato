@@ -4,8 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifica Profilo</title>
+    <link rel="stylesheet" type="text/css" href="static/modifica.css">
 </head>
 <body>
+    <header class="sticky-header">
+        <div>
+            <h1>Modifica Profilo</h1>
+        </div>
+        <nav>
+            <!-- Link del Carrello con icona -->
+            <a href="/carrello">
+                <i class="fas fa-shopping-cart"></i> Carrello
+            </a>
+            <!-- Link dell'Area Personale con icona -->
+            <a href="/profilo">
+                <i class="fas fa-user"></i> Profilo Utente
+            </a>
+            <a href="/offerete">Offerte</a>
+            <a href="/home">home</a>
+        </nav>
+    </header>
     <h1>Modifica Profilo</h1>
     <form action="/salva_modifiche" method="post">
         <label for="nome">Nome:</label><br>

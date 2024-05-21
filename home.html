@@ -12,7 +12,7 @@
 <body>
     <header class="sticky-header">
         <div>
-            <h1>Supermercato</h1>
+            <h1>home</h1>
         </div>
         <nav>
             <!-- Link del Carrello con icona -->
@@ -23,6 +23,7 @@
             <a href="/profilo">
                 <i class="fas fa-user"></i> Profilo Utente
             </a>
+            <a href="/offerte">Offerte</a>
         </nav>
     </header>
 
@@ -31,13 +32,12 @@
         <div class="product-grid">
             <!-- Inserire qui le card dei prodotti -->
             {% for product in items %}
-            <div class="product">
-                <img src="{{ product.immagine }}" alt="{{ product.nome }}">
-                <h3>{{ product.nome }}</h3>
-                <p>{{ product.desc_prod }}</p>
-                <p>Prezzo: {{ product.prezzo }}</p>
-                <button>Aggiungi al carrello</button>
-                
+            <div class="card">
+                <div class="image">
+                    <img src="{{ product.immagine }}" alt="{{ product.nome }}">
+                </div>
+                <span class="title">{{ product.nome }}</span>
+                <span class="price">Prezzo: €{{ product.prezzo }}</span>
             </div>
             {% endfor %}
         </div>

@@ -5,6 +5,7 @@
     text-align: center;
 }
 
+
 textarea {
     width: 100%;
     height: 200px;
@@ -25,4 +26,70 @@ button {
 
 button:hover {
     background-color: darkpurple;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #333;
+    color: #ffffff;
+    padding: 10px 25px;  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;    
+    top: 0;            
+    left: 0;
+    right: 0;
+    z-index: 1000;     
+}
+
+
+header h1 {
+    font-size: 24px;    
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.content {
+    padding: 20px;
+    text-align: center;
+    margin-top: 100px;   
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.product {
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+}
+
+footer {
+    background-color: rgb(55, 48, 46);
+    color: #ffffff; 
+    text-align: center; 
+    padding: 10px 0;
+    position: fixed;     
+    bottom: 0;           
+    left: 0;
+    right: 0;
 }

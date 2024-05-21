@@ -4,27 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Area Personale</title>
-   
     <link rel="stylesheet" type="text/css" href="static/area_personale.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Area Personale</h1>
-        <div class="user-info">
-            <p><strong>Nome:</strong> {{ products.nome }}</p>
-            <p><strong>Cognome:</strong> {{ products.cognome }}</p>
-            <p><strong>Username:</strong> {{ products.username }}</p>
+    <header class="sticky-header">
+        <div>
+            <h1>Area Personale</h1>
         </div>
-        <div class="edit-profile-link">
-            <a href="/modifica">Modifica Profilo</a>
+        <nav>
+            <!-- Link del Carrello con icona -->
+            <a href="/carrello">
+                <i class="fas fa-shopping-cart"></i> Carrello
+            </a>
+            <!-- Link dell'Area Personale con icona -->
+            <a href="/home">
+                <i class="fas fa-user"></i> Home
+            </a>
+            <a href="/offerte">Offerte</a>
+        </nav>
+    </header>
+    <!-- Card component -->
+    <div class="card">
+        <div class="bg"></div>
+        <div class="blob"></div>
+        <div class="content">
+            <h1>Area Personale</h1>
+            <div class="user-info">
+                <p><strong>Nome:</strong> {{ products.nome }}</p>
+                <p><strong>Cognome:</strong> {{ products.cognome }}</p>
+                <p><strong>Username:</strong> {{ products.username }}</p>
+            </div>
+            <div class="edit-profile-link">
+                <a href="/modifica">Modifica Profilo</a>
+            </div>
+            <div class="checkout">
+                <button onclick="returnToShop()">Torna allo Shop</button>
+            </div>
         </div>
     </div>
-    <p class="checkout" align="center"><button onclick="returnToShop()">Torna allo Shop</button></p>
+
+
     <script>
         function returnToShop() {
             window.location.href = "/home";
         }
     </script>
-
 </body>
 </html>

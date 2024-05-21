@@ -8,7 +8,25 @@
     <title>Richiesta</title>
 </head>
 <body>
+    <header class="sticky-header">
+        <div>
+            <h1>Richieste</h1>
+        </div>
+        <nav>
+            <!-- Link del Carrello con icona -->
+            <a href="/carrello">
+                <i class="fas fa-shopping-cart"></i> Carrello
+            </a>
+            <!-- Link dell'Area Personale con icona -->
+            <a href="/profilo">
+                <i class="fas fa-user"></i> Profilo Utente
+            </a>
+            <a href="/offerete">Offerte</a>
+        </nav>
+    </header>
     <div class="container">
+        <br>
+        <br>
         <h1>Scrivi qua la tua richiesta</h1>
         <textarea id="requestText" maxlength="369"></textarea>
         <button id="submitButton">Invia</button>
