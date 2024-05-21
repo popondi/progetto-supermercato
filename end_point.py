@@ -29,6 +29,7 @@ app.add_middleware(
 SECRET = os.urandom(24).hex()
 manager = LoginManager(SECRET, '/login', use_cookie=True)
 templates = Jinja2Templates(directory=".")
+
 class User(BaseModel):
     pwd: str
     user: str
@@ -144,7 +145,7 @@ def home(request: Request, user = Depends(manager)):
     
     try:
         cursor = connection.cursor(dictionary=True)
-        query = "SELECT nome, desc_prod, prezzo, immagine FROM item"
+        query = "SELECT id_i, nome, desc_prod, prezzo, immagine FROM item"
         cursor.execute(query)
         products = cursor.fetchall()
     except mysql.connector.Error as err:
@@ -189,27 +190,80 @@ async def radice(request: Request, user = Depends(manager)):
             cursor.close()
             connection.close()
             
-@app.route('/carrello', methods=['GET', 'POST'])
-async def registrazione(request: Request):
-    if request.method == 'GET':
-        with open("carrello.html") as file:
-            contenuto = file.read()
+@app.get('/carrello')
+async def carrello(request: Request, user: User = Depends(manager)):
+        print(f"Tipo di user: {type(user)}")
+        print(f"Contenuto di user: {user}")
+        # Recupera i prodotti presenti nel carrello dell'utente
+        connection = connecttodb('supermercato')
+        if connection is None:
+            raise HTTPException(status_code=500, detail="Errore nella connessione al database")
 
-        return HTMLResponse(content=contenuto, status_code=200)
+        try:
+            cursor = connection.cursor(dictionary=True)
+            query = """
+            SELECT i.nome, i.prezzo, r.quantita
+            FROM riga r
+            INNER JOIN item i ON r.cod_i = i.id_i
+            INNER JOIN carrello c ON r.cod_c = c.id_c
+            WHERE c.username = %s
+            """
 
+            cursor.execute(query, (user['username'],))
+            products_in_cart = cursor.fetchall()
+        except mysql.connector.Error as err:
+            print(f"Errore durante l'esecuzione della query: {err}")
+            raise HTTPException(status_code=500, detail="Errore durante l'esecuzione della query")
+        finally:
+            cursor.close()
+            connection.close()
 
-@app.get("/profilo")
-def home(request: Request, user: User = Depends(manager)):
-    # Connessione al database
-    connection = connecttodb('areapersonale')
+        return templates.TemplateResponse("carrello.html", {"request": request, "products_in_cart": products_in_cart})
+    
+    
+@app.post('/carrello')
+async def carrello(request: Request, user: User = Depends(manager)):
+    data = await request.json()
+    product_id = data.get("product_id")
+    user_id = user['username']
+
+    connection = connecttodb('supermercato')
     if connection is None:
         raise HTTPException(status_code=500, detail="Errore nella connessione al database")
-    
+
     try:
         cursor = connection.cursor(dictionary=True)
-        query = "SELECT nome, cognome, username FROM utenti WHERE username= %s and passwrd= %s"
-        cursor.execute(query,(user['username'], user['passwrd']))
-        products = cursor.fetchall()
+
+        # Controlla se l'utente ha già un carrello
+        query = "SELECT id_c FROM carrello WHERE username = %s"
+        cursor.execute(query, (user_id,))
+        carrello = cursor.fetchone()
+
+        # Se il carrello non esiste, creane uno nuovo
+        if not carrello:
+            insert_carrello = "INSERT INTO carrello (username) VALUES (%s)"
+            cursor.execute(insert_carrello, (user_id,))
+            connection.commit()
+            carrello_id = cursor.lastrowid
+        else:
+            carrello_id = carrello['id_c']
+
+        # Controlla se il prodotto è già nel carrello
+        query = "SELECT id_r FROM riga WHERE cod_c = %s AND cod_i = %s"
+        cursor.execute(query, (carrello_id, product_id))
+        riga = cursor.fetchone()
+
+        if riga:
+            # Aggiorna la quantità del prodotto nel carrello
+            update_riga = "UPDATE riga SET quantita = quantita + 1 WHERE id_r = %s"
+            cursor.execute(update_riga, (riga['id_r'],))
+        else:
+            # Inserisci una nuova riga nel carrello
+            insert_riga = "INSERT INTO riga (cod_c, cod_i, quantita) VALUES (%s, %s, 1)"
+            cursor.execute(insert_riga, (carrello_id, product_id))
+
+        connection.commit()
+
     except mysql.connector.Error as err:
         print(f"Errore durante l'esecuzione della query: {err}")
         raise HTTPException(status_code=500, detail="Errore durante l'esecuzione della query")
@@ -217,10 +271,35 @@ def home(request: Request, user: User = Depends(manager)):
         cursor.close()
         connection.close()
 
-    return templates.TemplateResponse("area_personale.html", {"request": request, "products": products})
+    return {"message": "Prodotto aggiunto al carrello"}
+
+            
+            
+@app.get("/profilo")
+def profilo(request: Request, user: User = Depends(manager)):
+    # Connessione al database
+    print(f"Tipo di user: {type(user)}")
+    print(f"Contenuto di user: {user}")
+    connection = connecttodb('AreaPersonale')
+    if connection is None:
+        raise HTTPException(status_code=500, detail="Errore nella connessione al database")
+    
+    try:
+        cursor = connection.cursor(dictionary=True)
+        query = "SELECT nome, cognome, username FROM utenti WHERE username= %s and passwrd= %s"
+        cursor.execute(query,(user['username'], user['passwrd']))
+        products = cursor.fetchone()
+    except mysql.connector.Error as err:
+        print(f"Errore durante l'esecuzione della query: {err}")
+        raise HTTPException(status_code=500, detail="Errore durante l'esecuzione della query")
+    finally:
+        cursor.close()
+        connection.close()
+
+    return templates.TemplateResponse("profilo.html", {"request": request, "utente": products})
 
 @app.route('/modifica', methods=['GET', 'POST'])
-async def registrazione(request: Request):
+async def modifica(request: Request):
     if request.method == 'GET':
         with open("modifica_profilo.html") as file:
             contenuto = file.read()
