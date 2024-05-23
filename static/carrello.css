@@ -92,31 +92,32 @@ li {
 }
 
 header {
-    background-color: #333;
-    color: #ffffff;
-    padding: 10px 25px;  
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;    
-    top: 0;            
-    left: 0;
-    right: 0;
-    z-index: 1000;     
+  background-color: #333;
+  color: #ffffff;
+  padding: 10px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
 header h1 {
-    font-size: 24px;    
+  font-size: 24px;
 }
 
 nav {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
 }
 
 nav a {
-    color: #fff;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
 }
 
 .content {
