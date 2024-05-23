@@ -36,8 +36,8 @@
     width: 100px;
     height: 3px;
     background: black;
-    left: 540px;
-    top: 29%;
+    left: 595px;
+    top: 35%;
     position: absolute;
   }
   
@@ -47,8 +47,8 @@
     width: 100px;
     height: 3px;
     background: black;
-    right: 540px;
-    top: 29%;
+    right: 595px;
+    top: 35%;
     position: absolute;
   }
   
@@ -78,8 +78,8 @@
   #register_btn{
     text-decoration: none;
     padding: 10px 120px;
-    border: 1px solid green;
-    background: green;
+    border: 1px solid gray;
+    background: gray;
     color: white;
     border-radius: 8px;
     margin-top: 20px;
