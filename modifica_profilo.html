@@ -5,37 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifica Profilo</title>
     <link rel="stylesheet" type="text/css" href="static/modifica.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <header class="sticky-header">
         <div>
             <h1>Modifica Profilo</h1>
         </div>
-        <nav>
+        <nav><a href="/home">Home</a><a href="/offerte">Offerte</a>
             <!-- Link del Carrello con icona -->
             <a href="/carrello">
-                <i class="fas fa-shopping-cart"></i> Carrello
+                 Carrello
             </a>
             <!-- Link dell'Area Personale con icona -->
-            <a href="/profilo">
-                <i class="fas fa-user"></i> Profilo Utente
-            </a>
-            <a href="/offerete">Offerte</a>
-            <a href="/home">home</a>
+            
+            
         </nav>
     </header>
-    <h1>Modifica Profilo</h1>
-    <form action="/salva_modifiche" method="post">
-        <label for="nome">Nome:</label><br>
-        <input type="text" id="nome" name="nome"><br>
-        <label for="cognome">Cognome:</label><br>
-        <input type="text" id="cognome" name="cognome"><br>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email"><br>
-        <label for="password">Nuova Password:</label><br>
-        <input type="password" id="password" name="password"><br>
-        <input type="submit" value="Salva Modifiche">
-    </form>
+
+    <div class="container">
+        <h2>Modifica Profilo</h2>
+        <form action="/salva_modifiche" method="post">
+            <label for="nome">Nome:</label><br>
+            <input type="text" id="nome" name="nome"><br>
+            <label for="cognome">Cognome:</label><br>
+            <input type="text" id="cognome" name="cognome"><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email"><br>
+            <label for="password">Nuova Password:</label><br>
+            <input type="password" id="password" name="password"><br>
+            <br>
+            <input type="submit" value="Salva Modifiche" class="button-save">
+
+        </form>
+    </div>
 
     <script>
         // Reindirizzamento alla pagina dell'area personale dopo il salvataggio delle modifiche
@@ -43,7 +46,7 @@
             event.preventDefault();  // Evita l'invio del modulo
 
             // Esegui una richiesta POST al backend per salvare le modifiche
-            fetch('/profilo', {
+            fetch('/salva_modifiche', {
                 method: 'POST',
                 body: new FormData(document.querySelector('form'))
             })
