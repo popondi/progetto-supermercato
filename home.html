@@ -6,7 +6,92 @@
     <title>Homepage</title>
     <!-- Collegamento al file CSS esterno -->
     <link rel="stylesheet" type="text/css" href="static/home.css">
+    <!-- Collegamento all'icon set di FontAwesome per icone --><!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <!-- Collegamento al file CSS esterno -->
+    <link rel="stylesheet" type="text/css" href="static/home.css">
     <!-- Collegamento all'icon set di FontAwesome per icone -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header class="sticky-header">
+        <div>
+            <h1>Home</h1>
+        </div>
+        <nav> 
+           <a href="/offerte">Offerte</a> <!-- Link del Carrello con icona -->
+            <a href="/carrello">
+                Carrello
+            </a>
+            <!-- Link dell'Area Personale con icona -->
+            <a href="/profilo">
+                 Profilo Utente
+            </a>
+            
+        </nav>
+    </header>
+
+    <main class="content">
+        <h2>la spesa che conviene</h2>
+        <div class="product-grid">
+            <!-- Inserire qui le card dei prodotti -->
+            {% for product in items %}
+            <div class="card">
+                <div class="image">
+                    <img src="{{ product.immagine }}" alt="{{ product.nome }}">
+                </div>
+                <span class="title">{{ product.nome }}</span>
+                <span class="price">Prezzo: €{{ product.prezzo }}</span>
+                <div class="add-to-cart">
+                    <button onclick="addToCart(this)">Aggiungi al Carrello</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <br><br><br>
+    <footer>
+        <a bgcolor="white" href="/richiesta">Richieste</a>
+    </footer>
+    
+    <script>
+        window.addEventListener('scroll', function() {
+            var footer = document.querySelector('footer');
+            var windowHeight = window.innerHeight;
+            var scrollY = window.scrollY || window.pageYOffset;
+            var bodyHeight = document.body.offsetHeight;
+
+            // Se l'utente si avvicina alla fine della pagina, mostra il footer
+            if (windowHeight + scrollY >= bodyHeight) {
+                footer.style.bottom = '0';
+            } else {
+                footer.style.bottom = '-50px';  // Rimane nascosto
+            }
+        });
+    </script>
+    <script>
+        function addToCart(button) {
+            // Salva il testo originale del pulsante
+            var originalText = button.textContent;
+    
+            // Cambia il testo del pulsante in "Aggiunto"
+            button.textContent = 'Aggiunto';
+    
+            // Imposta un timer per ripristinare il testo originale dopo 1.5 secondi
+            setTimeout(function() {
+                button.textContent = originalText;
+            }, 1500); // 1500 millisecondi = 1.5 secondi
+        }
+    </script>
+    
+</body>
+</html>
+
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
