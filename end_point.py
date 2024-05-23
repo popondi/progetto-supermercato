@@ -192,8 +192,6 @@ async def radice(request: Request, user = Depends(manager)):
             
 @app.get('/carrello')
 async def carrello(request: Request, user: User = Depends(manager)):
-        print(f"Tipo di user: {type(user)}")
-        print(f"Contenuto di user: {user}")
         # Recupera i prodotti presenti nel carrello dell'utente
         connection = connecttodb('supermercato')
         if connection is None:
@@ -277,9 +275,7 @@ async def carrello(request: Request, user: User = Depends(manager)):
             
 @app.get("/profilo")
 def profilo(request: Request, user: User = Depends(manager)):
-    # Connessione al database
-    print(f"Tipo di user: {type(user)}")
-    print(f"Contenuto di user: {user}")
+
     connection = connecttodb('AreaPersonale')
     if connection is None:
         raise HTTPException(status_code=500, detail="Errore nella connessione al database")
@@ -296,7 +292,7 @@ def profilo(request: Request, user: User = Depends(manager)):
         cursor.close()
         connection.close()
 
-    return templates.TemplateResponse("profilo.html", {"request": request, "utente": products})
+    return templates.TemplateResponse("area_personale.html", {"request": request, "utente": products})
 
 @app.route('/modifica', methods=['GET', 'POST'])
 async def modifica(request: Request):
@@ -304,3 +300,10 @@ async def modifica(request: Request):
         with open("modifica_profilo.html") as file:
             contenuto = file.read()
         return HTMLResponse(content=contenuto, status_code=200)
+
+@app.get('/offerte')
+async def offerte(request: Request, user: User = Depends(manager)):
+    with open("offerte.html") as file:
+        contenuto = file.read()
+    
+    return HTMLResponse(content=contenuto, status_code=200)
