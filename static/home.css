@@ -8,19 +8,19 @@ body {
 header {
     background-color: #333;
     color: #ffffff;
-    padding: 10px 25px;  
+    padding: 10px 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;    
-    top: 0;            
+    position: fixed;
+    top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;     
+    z-index: 1000;
 }
 
 header h1 {
-    font-size: 24px;    
+    font-size: 24px;
 }
 
 nav {
@@ -31,12 +31,13 @@ nav {
 nav a {
     color: #fff;
     text-decoration: none;
+    font-size: 16px;
 }
 
 .content {
     padding: 20px;
     text-align: center;
-    margin-top: 100px;   
+    margin-top: 80px;
 }
 
 .product-grid {
@@ -48,78 +49,91 @@ nav a {
 
 .card {
     position: relative;
-    width: 250px; /* or 11.875em */
-    height: 330px; /* or 16.5em */
-    box-shadow: 0px 1px 13px rgba(0,0,0,0.1);
+    width: 250px;
+    height: 400px;
+    box-shadow: 0px 1px 13px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: all 120ms;
     display: flex;
     flex-direction: column;
     align-items: center;
     background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
     padding: 0.5em;
     text-align: center;
 }
 
-.card::after {
-    content: "Add to Cart";
-    padding-top: 1.25em;
-    padding-left: 1.25em;
-    position: absolute;
-    left: 0;
-    bottom: -60px;
-    background: #00AC7C;
-    color: #fff;
-    height: 2.5em;
-    width: 90%;
-    transition: all 80ms;
-    font-weight: 600;
-    text-transform: uppercase;
-    opacity: 0;
-}
-
 .card .title {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.9em;
+    font-size: 1em;
     position: absolute;
-    bottom: 3.5em;
-    font-weight: 400;
+    bottom: 4em;
+    font-weight: 600;
     color: #000;
 }
 
 .card .price {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 0.9em;
+    font-size: 1em;
     position: absolute;
-    bottom: 1.5em;
+    bottom: 2em;
     color: #000;
 }
 
-.card:hover::after {
+.card .add-to-cart {
+    display: none; /* Nascondi il pulsante di default */
+    position: absolute;
     bottom: 0;
-    opacity: 1;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
-.card:active {
-    transform: scale(0.98);
+.card:hover .add-to-cart { /* Mostra il pulsante solo durante l'hover sulla card */
+    display: flex;
 }
 
-.card:active::after {
-    content: "Added!";
-    height: 3.125em;
+.card .add-to-cart button {
+    background-color: #727272;
+    color: white;
+    border: 2px solid black; /* Contorno nero */
+    padding: 10px 0; /* Altezza del pulsante */
+    width: 100%; /* Larghezza del pulsante */
+    font-size: 0.9em;
+    cursor: pointer;
+    border-radius: 0 0 10px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.card .add-to-cart button:hover {
+    background-color: #3c3d3d;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .image {
     background: rgb(241, 241, 241);
     width: 100%;
     height: 60%;
-    display: grid;
-    place-items: center;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 footer {
     background-color: rgb(55, 48, 46);
-    color: #ffffff;
+    color: #944949;
     text-align: center;
     padding: 10px 0;
     position: fixed;
@@ -127,4 +141,7 @@ footer {
     left: 0;
     right: 0;
     transition: bottom 0.3s;
+}
+footer a {
+    color: #777777; /* Grigio */
 }
