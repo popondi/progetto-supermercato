@@ -79,3 +79,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inizializza il carrello
     updateCart();
 });
+
