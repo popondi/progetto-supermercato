@@ -47,7 +47,7 @@
                 <span class="title">{{ product.nome }}</span>
                 <span class="price">Prezzo: €{{ product.prezzo }}</span>
                 <div class="add-to-cart">
-                    <button onclick="addToCart(this)">Aggiungi al Carrello</button>
+                    <<button class="add-to-cart-button" data-product-id="{{ product.id_i }}" onclick="addToCart(this), ">Aggiungi al Carrello</button>
                 </div>
             </div>
             {% endfor %}
@@ -146,5 +146,30 @@
             }
         });
     </script>
+    <script>
+        document.querySelectorAll('.add-to-cart-button').forEach(button => {
+        button.addEventListener('click', async () => {
+            const productId = button.dataset.productId;
+            try {
+                const response = await fetch('/carrello', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`  // Invia il token di accesso
+                    },
+                    body: JSON.stringify({ product_id: productId })
+                });
+                if (response.ok) {
+                    alert("Prodotto aggiunto al carrello con successo!");
+                } else {
+                    alert("Errore durante l'aggiunta del prodotto al carrello");
+                }
+            } catch (error) {
+                console.error('Errore durante la richiesta:', error);
+                alert("Errore durante la richiesta. Si prega di riprovare più tardi.");
+            }
+        });
+    </script>
+    
 </body>
 </html>
